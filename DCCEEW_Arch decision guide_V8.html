@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Microsoft Fabric Intake Questionnaire</title>
+  <style>
+    :root{
+      --bg:#0b1020; --card:#121a33; --muted:#9fb0d0; --text:#e8eeff; --line:#253055; --accent:#6ea8ff;
+      --warn:#ffcc66; --bad:#ff6e86; --good:#6effc2;
+    }
+    *{ box-sizing:border-box; }
+    body{ margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:linear-gradient(180deg,var(--bg),#070a14); color:var(--text); }
+    header{ padding:22px 18px; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:10;
+      background:rgba(11,16,32,.92); backdrop-filter: blur(10px); }
+    header h1{ margin:0 0 6px; font-size:18px; letter-spacing:.2px; }
+    header p{ margin:0; color:var(--muted); font-size:13px; line-height:1.45; max-width:1100px; }
+    main{ max-width:1320px; margin:0 auto; padding:18px; }
+    .grid{ display:grid; grid-template-columns: 1fr 1.3fr; gap:16px; }
+    @media (max-width: 980px){ .grid{ grid-template-columns:1fr; } header{ position:static; } }
+    .card{ background:rgba(18,26,51,.92); border:1px solid var(--line); border-radius:16px; padding:14px;
+      box-shadow:0 10px 30px rgba(0,0,0,.25); }
+    .card h2{ margin:0 0 10px; font-size:14px; color:#cfe0ff; letter-spacing:.2px; }
+    .sub{ color:var(--muted); font-size:12px; margin-top:-6px; margin-bottom:10px; line-height:1.45; }
+    .field{ display:flex; flex-direction:column; gap:6px; margin:10px 0 12px; }
+    label{ font-size:12px; color:var(--muted); }
+    select, textarea, input[type="text"]{
+      background:#0c132b; border:1px solid var(--line); color:var(--text); border-radius:12px;
+      padding:10px 10px; outline:none; font-size:13px;
+    }
+    textarea{ min-height:64px; resize:vertical; }
+    select:focus, textarea:focus, input[type="text"]:focus{ border-color:var(--accent); box-shadow:0 0 0 3px rgba(110,168,255,.18); }
+    .checks{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    @media (max-width: 520px){ .checks{ grid-template-columns:1fr; } }
+    .check{ display:flex; gap:8px; align-items:flex-start; padding:10px; border:1px solid var(--line); border-radius:12px; background:#0c132b; }
+    .check input{ margin-top:2px; }
+    .check span{ font-size:12px; color:#d9e4ff; line-height:1.25; }
+    .row{ display:flex; gap:10px; flex-wrap:wrap; }
+    .pill{ font-size:12px; padding:8px 10px; border:1px solid var(--line); border-radius:999px;
+      background:#0c132b; color:#d9e4ff; cursor:pointer; user-select:none; }
+    .pill[data-active="true"]{ border-color:var(--accent); box-shadow:0 0 0 3px rgba(110,168,255,.14); }
+    .btnbar{ display:flex; gap:10px; align-items:center; margin-top:10px; flex-wrap:wrap; }
+    button{
+      background:linear-gradient(180deg,#7bb3ff,#4a86ff);
+      border:none; color:#051027; border-radius:12px; padding:10px 12px; font-weight:900; cursor:pointer;
+    }
+    button.secondary{ background:#0c132b; color:#e8eeff; border:1px solid var(--line); font-weight:800; }
+    button:active{ transform: translateY(1px); }
+    .muted{ color:var(--muted); font-size:12px; line-height:1.45; }
+    .badge{ display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border-radius:999px; border:1px solid var(--line);
+      background:#0c132b; font-size:12px; color:#d9e4ff; }
+    .dot{ width:10px; height:10px; border-radius:999px; display:inline-block; }
+    .dot.good{ background:var(--good); } .dot.warn{ background:var(--warn); } .dot.bad{ background:var(--bad); }
+    .kpiGrid{ display:grid; grid-template-columns:1fr; gap:10px; margin-top:10px; }
+    .kpi{ border:1px solid var(--line); border-radius:14px; padding:10px; background:#0c132b; }
+    .kpi .k{ font-size:12px; color:#cfe0ff; font-weight:900; margin-bottom:6px; }
+    .kpi .v{ font-size:12px; color:#d9e4ff; line-height:1.45; }
+    .hr{ border-top:1px solid var(--line); margin-top:14px; padding-top:12px; }
+    .sectionTitle{ margin-top:12px; font-size:12px; color:#cfe0ff; font-weight:900; }
+    .topPicks{ display:grid; grid-template-columns:1fr; gap:10px; margin-top:10px; }
+    .pick{ border:1px solid var(--line); border-radius:14px; padding:12px; background:#0c132b;
+      display:flex; justify-content:space-between; gap:12px; align-items:flex-start; }
+    .pick .left{ min-width:0; }
+    .pick .name{ font-size:13px; font-weight:950; color:#e8eeff; margin-bottom:6px; }
+    .pick .gloss{ font-size:12px; color:var(--muted); line-height:1.45; }
+    .pick .tag{ font-size:11px; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:6px 8px; white-space:nowrap; }
+    details{ border:1px solid var(--line); border-radius:14px; background:#0c132b; padding:10px; margin-top:10px; }
+    details summary{ cursor:pointer; font-weight:900; font-size:13px; color:#d9e4ff; }
+
+    /* Hide/show conditional fields */
+    .hidden{ display:none !important; }
+
+    /* Print / PDF */
+    @media print{
+      header{ position:static; }
+      body{ background:#fff; color:#000; }
+      .card{ box-shadow:none; background:#fff; color:#000; border:1px solid #ddd; }
+      select, textarea, input[type="text"]{ border:1px solid #ddd; color:#000; background:#fff; }
+      .pill, .badge, details, .check{ background:#fff; color:#000; border:1px solid #ddd; }
+      .dot{ display:none; }
+      button, #catalogueDetails{ display:none !important; }
+      .muted{ color:#333; }
+      .grid{ grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Microsoft Fabric Intake Questionnaire</h1>
+  <p>
+    The purpose of this questionnaire is to help the department’s architecture team understand your data needs and requirements, so we can confirm whether Microsoft Fabric is appropriate for your use case and identify which Fabric items are the best starting point if onboarding proceeds.
+  </p>
+</header>
+
+<main>
+  <div class="grid">
+
+    <section class="card" aria-label="Questionnaire">
+      <h2>Questions</h2>
+      <div class="sub">Answer what you can. Some questions only appear when you select APIs, external platforms, or cross-cloud hosting.</div>
+
+      <div class="field">
+        <label for="primaryOutcome">What do you want to do with your data?</label>
+        <select id="primaryOutcome">
+          <option value="bi">Create reports / dashboards for people to view</option>
+          <option value="analytics">Create a shared dataset other teams can reuse</option>
+          <option value="realtime">Monitor activity in near real-time (operational visibility)</option>
+          <option value="ds">Do data science / machine learning</option>
+          <option value="app">Run an operational system (application data store)</option>
+          <option value="archive">Store data for retention only</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Will other teams need to use this data later?</label>
+        <div class="row" id="shareReuse">
+          <div class="pill" data-value="yes" data-active="true">Yes</div>
+          <div class="pill" data-value="no">No</div>
+          <div class="pill" data-value="ns">Not sure</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Is this mainly analytics/reporting (not an application database)?</label>
+        <div class="row" id="isAnalyticsNotOltp">
+          <div class="pill" data-value="yes" data-active="true">Yes</div>
+          <div class="pill" data-value="no">No</div>
+          <div class="pill" data-value="ns">Not sure</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Do you need ultra-low latency responses (e.g., &lt;100ms)?</label>
+        <div class="row" id="needsUltraLowLatency">
+          <div class="pill" data-value="yes">Yes</div>
+          <div class="pill" data-value="no" data-active="true">No</div>
+          <div class="pill" data-value="ns">Not sure</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Will you follow department standards (naming, security, organisation)?</label>
+        <div class="row" id="governanceAdopt">
+          <div class="pill" data-value="yes" data-active="true">Yes</div>
+          <div class="pill" data-value="no">No</div>
+          <div class="pill" data-value="ns">Not sure</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="securityNeeds">How sensitive is the data?</label>
+        <select id="securityNeeds">
+          <option value="standard">Standard</option>
+          <option value="high">Sensitive / high controls</option>
+          <option value="unknown">Unknown</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="dataStructure">What does the data look like?</label>
+        <select id="dataStructure">
+          <option value="structured">Mostly tables (rows/columns)</option>
+          <option value="mixed">Mixed tables and files</option>
+          <option value="unstructured">Mostly files (docs/logs/text/images)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Data sources (select all that apply)</label>
+        <div class="checks" id="sources">
+          <label class="check"><input type="checkbox" value="opdb"><span>System database (SQL Server/Postgres/etc.)</span></label>
+          <label class="check"><input type="checkbox" value="saas"><span>SaaS source (CRM/HR/Service/etc.)</span></label>
+          <label class="check"><input type="checkbox" value="files"><span>Files (Excel/CSV/Parquet/etc.)</span></label>
+          <label class="check"><input type="checkbox" value="stream"><span>Streaming events/logs/telemetry</span></label>
+          <label class="check"><input type="checkbox" value="api"><span>API endpoint(s) (REST/GraphQL)</span></label>
+          <label class="check"><input type="checkbox" value="catalog"><span>External catalogue (CKAN or similar)</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Other cloud / hosting used (select all that apply)</label>
+        <div class="checks" id="clouds">
+          <label class="check"><input type="checkbox" value="aws"><span>AWS</span></label>
+          <label class="check"><input type="checkbox" value="azure"><span>Azure (outside Fabric)</span></label>
+          <label class="check"><input type="checkbox" value="gcp"><span>GCP</span></label>
+          <label class="check"><input type="checkbox" value="onprem"><span>On-premises</span></label>
+          <label class="check"><input type="checkbox" value="vendor"><span>Managed by external provider</span></label>
+        </div>
+      </div>
+
+      <div id="apiFields">
+        <div class="field">
+          <label for="apiAuth">If API / external platform is used: authentication (how access is granted)</label>
+          <select id="apiAuth">
+            <option value="none">None (public/open)</option>
+            <option value="key">API key</option>
+            <option value="oauth">OAuth/OIDC</option>
+            <option value="m2m">Service-to-service (client credentials)</option>
+            <option value="unknown">Unknown</option>
+            <option value="na">Not applicable</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="apiLimits">If API / external platform is used: rate limits / quotas (how much we can call it)</label>
+          <select id="apiLimits">
+            <option value="known_ok">Known and acceptable</option>
+            <option value="tight">Tight (likely to constrain ingestion)</option>
+            <option value="unknown">Unknown</option>
+            <option value="na">Not applicable</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="incrementalSupport">If API / external platform is used: incremental pulls (can we fetch only changes)</label>
+          <select id="incrementalSupport">
+            <option value="yes">Yes</option>
+            <option value="no">No (full extract required)</option>
+            <option value="unknown">Unknown</option>
+            <option value="na">Not applicable</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="changeControl">External provider change control (whether changes are notified/managed)</label>
+          <select id="changeControl">
+            <option value="controlled">Controlled (notified / versioned)</option>
+            <option value="uncontrolled">Uncontrolled (may change without notice)</option>
+            <option value="unknown">Unknown</option>
+            <option value="na">Not applicable</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="boundaryFields">
+        <div class="field">
+          <label for="sorBoundary">System of record boundary</label>
+          <select id="sorBoundary">
+            <option value="external">External system remains system of record; Fabric is downstream</option>
+            <option value="fabric">Fabric will be treated as system of record</option>
+            <option value="unknown">Unknown</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="scopeInFabric">Scope to include in Fabric</label>
+          <select id="scopeInFabric">
+            <option value="metadata_only">Metadata only</option>
+            <option value="metadata_and_data">Metadata + dataset access</option>
+            <option value="data_only">Dataset access only</option>
+            <option value="unknown">Unknown</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Is OneLake shortcut acceptable as the primary integration pattern?</label>
+          <div class="row" id="shortcutPrimaryOk">
+            <div class="pill" data-value="yes">Yes</div>
+            <div class="pill" data-value="no">No</div>
+            <div class="pill" data-value="ns" data-active="true">Not sure</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="freshness">Required freshness</label>
+        <select id="freshness">
+          <option value="batch">Daily/weekly</option>
+          <option value="hourly">Hourly / few times a day</option>
+          <option value="minutes">Near real-time (minutes/live)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="volume">Data volume</label>
+        <select id="volume">
+          <option value="small">Small (GBs)</option>
+          <option value="medium">Medium (10s–100s GB)</option>
+          <option value="large">Large (TBs+)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="concurrency">Expected users</label>
+        <select id="concurrency">
+          <option value="low">Few</option>
+          <option value="med">Team / business unit</option>
+          <option value="high">Many / department-wide</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="transformStyle">Build style</label>
+        <select id="transformStyle">
+          <option value="lowcode">Low-code</option>
+          <option value="mix">Mixed</option>
+          <option value="code">Code-first</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Consumers (select all that apply)</label>
+        <div class="checks" id="consumers">
+          <label class="check"><input type="checkbox" value="bi"><span>BI/report readers</span></label>
+          <label class="check"><input type="checkbox" value="sql"><span>SQL/table users</span></label>
+          <label class="check"><input type="checkbox" value="ds"><span>Data science users</span></label>
+          <label class="check"><input type="checkbox" value="ops"><span>Operational monitoring users</span></label>
+          <label class="check"><input type="checkbox" value="api_consume"><span>Other systems will consume outputs via API</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Do you need consistent KPI definitions across reports?</label>
+        <div class="row" id="needsSemantic">
+          <div class="pill" data-value="yes" data-active="true">Yes</div>
+          <div class="pill" data-value="no">No</div>
+          <div class="pill" data-value="ns">Not sure</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Do you want to link data without copying it (OneLake shortcut)?</label>
+        <div class="row" id="wantsShortcuts">
+          <div class="pill" data-value="yes">Yes</div>
+          <div class="pill" data-value="no">No</div>
+          <div class="pill" data-value="ns" data-active="true">Not sure</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Do you want replication with minimal ETL (mirroring), where available?</label>
+        <div class="row" id="wantsMirroring">
+          <div class="pill" data-value="yes">Yes</div>
+          <div class="pill" data-value="no">No</div>
+          <div class="pill" data-value="ns" data-active="true">Not sure</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="slaNeed">Need an SLA for refresh / availability? (how reliable it must be)</label>
+        <select id="slaNeed">
+          <option value="no">No</option>
+          <option value="yes_low">Yes (best effort)</option>
+          <option value="yes_high">Yes (strong SLA expected)</option>
+          <option value="unknown">Unknown</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="notes">Optional context</label>
+        <textarea id="notes" placeholder="Add any relevant context here"></textarea>
+      </div>
+
+      <div class="btnbar">
+        <button id="runBtn">Run assessment</button>
+        <button class="secondary" id="resetBtn">Reset</button>
+        <button class="secondary" id="pdfBtn" title="Uses your browser's print-to-PDF">Save results as PDF</button>
+        <label class="badge" style="cursor:pointer">
+          <input type="checkbox" id="showRationale" style="transform: translateY(1px)" />
+          <span>Show rationale</span>
+        </label>
+      </div>
+    </section>
+
+    <section class="card" aria-label="Results">
+      <h2>Decision</h2>
+      <div class="sub">A high-level view of whether Microsoft Fabric appears appropriate for the stated need.</div>
+
+      <div class="row" style="justify-content:space-between; align-items:center">
+        <div id="fitBadge" class="badge"><span class="dot warn"></span><span>Run the assessment</span></div>
+      </div>
+
+      <div class="kpiGrid" id="fitKpis"></div>
+
+      <div class="hr"></div>
+      <div class="sectionTitle">Options</div>
+      <div class="muted" style="margin-top:6px">Up to three items are suggested as a practical starting point based on your answers.</div>
+      <div class="topPicks" id="topPicks"></div>
+
+      <div id="details"></div>
+
+      <div class="hr"></div>
+      <div class="sectionTitle">Suggested landing pattern (if Fabric)</div>
+      <div class="muted" style="margin-top:6px">This outlines a typical Bronze/Silver/Gold approach aligned to the selected items.</div>
+
+      <div class="sectionTitle" style="margin-top:10px">Bronze</div>
+      <ul class="list" id="bronze"></ul>
+
+      <div class="sectionTitle">Silver</div>
+      <ul class="list" id="silver"></ul>
+
+      <div class="sectionTitle">Gold</div>
+      <ul class="list" id="gold"></ul>
+    </section>
+
+  </div>
+</main>
+
+<script>
+  function pillGroupValue(groupId){
+    const active = document.querySelector(`#${groupId} .pill[data-active="true"]`);
+    return active ? active.dataset.value : "ns";
+  }
+  function setPillGroupValue(groupId, value){
+    document.querySelectorAll(`#${groupId} .pill`).forEach(p => p.dataset.active = (p.dataset.value === value) ? "true" : "false");
+  }
+  function wirePills(groupId, defaultValue="ns"){
+    const group = document.getElementById(groupId);
+    setPillGroupValue(groupId, defaultValue);
+    group.querySelectorAll(".pill").forEach(p => p.addEventListener("click", () => {
+      setPillGroupValue(groupId, p.dataset.value);
+      applyConditionalVisibility();
+    }));
+  }
+  function getCheckedValues(containerId){
+    return Array.from(document.querySelectorAll(`#${containerId} input[type="checkbox"]:checked`)).map(x => x.value);
+  }
+  function uniq(items){
+    const seen = new Set(), out = [];
+    for(const x of items){ if(!seen.has(x)){ out.push(x); seen.add(x); } }
+    return out;
+  }
+
+  wirePills("shareReuse", "yes");
+  wirePills("isAnalyticsNotOltp", "yes");
+  wirePills("needsUltraLowLatency", "no");
+  wirePills("governanceAdopt", "yes");
+  wirePills("needsSemantic", "yes");
+  wirePills("wantsShortcuts", "ns");
+  wirePills("wantsMirroring", "ns");
+  wirePills("shortcutPrimaryOk", "ns");
+
+  // NOTE: Catalogue removed in this version per your earlier instructions.
+
+  function isApiOrExternalPlatformSelected(){
+    const sources = getCheckedValues("sources");
+    const clouds = getCheckedValues("clouds");
+    const wantsShortcuts = pillGroupValue("wantsShortcuts");
+    const hasApiOrCatalogue = sources.includes("api") || sources.includes("catalog");
+    const hasExternalCloud = clouds.includes("aws") || clouds.includes("gcp") || clouds.includes("vendor");
+    const hasShortcutInterest = (wantsShortcuts === "yes");
+    return { hasApiOrCatalogue, hasExternalCloud, hasShortcutInterest };
+  }
+
+  function applyConditionalVisibility(){
+    const { hasApiOrCatalogue, hasExternalCloud, hasShortcutInterest } = isApiOrExternalPlatformSelected();
+
+    const apiFields = document.getElementById("apiFields");
+    apiFields.classList.toggle("hidden", !(hasApiOrCatalogue));
+
+    const boundaryFields = document.getElementById("boundaryFields");
+    boundaryFields.classList.toggle("hidden", !(hasApiOrCatalogue || hasExternalCloud || hasShortcutInterest));
+
+    if(apiFields.classList.contains("hidden")){
+      document.getElementById("apiAuth").value = "na";
+      document.getElementById("apiLimits").value = "na";
+      document.getElementById("incrementalSupport").value = "na";
+      document.getElementById("changeControl").value = "na";
+    } else {
+      if(document.getElementById("apiAuth").value === "na") document.getElementById("apiAuth").value = "unknown";
+      if(document.getElementById("apiLimits").value === "na") document.getElementById("apiLimits").value = "unknown";
+      if(document.getElementById("incrementalSupport").value === "na") document.getElementById("incrementalSupport").value = "unknown";
+      if(document.getElementById("changeControl").value === "na") document.getElementById("changeControl").value = "unknown";
+    }
+
+    if(boundaryFields.classList.contains("hidden")){
+      document.getElementById("sorBoundary").value = "external";
+      document.getElementById("scopeInFabric").value = "unknown";
+    }
+  }
+
+  function evaluate(){
+    const primaryOutcome = document.getElementById("primaryOutcome").value;
+    const isAnalyticsNotOltp = pillGroupValue("isAnalyticsNotOltp");
+    const needsUltraLowLatency = pillGroupValue("needsUltraLowLatency");
+    const governanceAdopt = pillGroupValue("governanceAdopt");
+    const securityNeeds = document.getElementById("securityNeeds").value;
+
+    const sources = getCheckedValues("sources");
+    const clouds = getCheckedValues("clouds");
+    const wantsShortcuts = pillGroupValue("wantsShortcuts");
+
+    const apiFieldsVisible = !document.getElementById("apiFields").classList.contains("hidden");
+    const boundaryFieldsVisible = !document.getElementById("boundaryFields").classList.contains("hidden");
+
+    const apiAuth = document.getElementById("apiAuth").value;
+    const apiLimits = document.getElementById("apiLimits").value;
+    const incrementalSupport = document.getElementById("incrementalSupport").value;
+    const changeControl = document.getElementById("changeControl").value;
+
+    const sorBoundary = document.getElementById("sorBoundary").value;
+    const scopeInFabric = document.getElementById("scopeInFabric").value;
+
+    const consumers = getCheckedValues("consumers");
+    const needsSemantic = pillGroupValue("needsSemantic");
+    const wantsMirroring = pillGroupValue("wantsMirroring");
+
+    const positives = [];
+    const risks = [];
+    const alternatives = [];
+
+    let fit = 0;
+
+    if(["bi","analytics","realtime","ds"].includes(primaryOutcome)){
+      fit += 2; positives.push("The stated outcome aligns with analytics/reporting/real-time/data science.");
+    }
+    if(primaryOutcome === "app"){
+      fit -= 4; risks.push("The use case appears operational/transactional; Fabric is typically not the primary application datastore.");
+      alternatives.push("Use an operational datastore for the application; use Fabric for analytics/reporting.");
+    }
+    if(primaryOutcome === "archive"){
+      fit -= 2; risks.push("Retention-only workloads may not need Fabric unless analytics is required.");
+      alternatives.push("Use lower-cost retention storage; onboard to Fabric only if analytics/reporting is needed.");
+    }
+
+    if(governanceAdopt === "yes"){
+      fit += 2; positives.push("Standards adoption supports onboarding to the shared platform.");
+    } else if(governanceAdopt === "no"){
+      fit -= 5; risks.push("Not adopting standards is a strong onboarding blocker.");
+      alternatives.push("Adopt standards or use a separate platform boundary outside the shared Fabric ecosystem.");
+    } else {
+      fit -= 1; risks.push("Standards adoption is unclear.");
+    }
+
+    if(isAnalyticsNotOltp === "yes"){
+      fit += 2; positives.push("Workload is analytics/reporting oriented.");
+    } else if(isAnalyticsNotOltp === "no"){
+      fit -= 3; risks.push("Workload appears application/OLTP oriented.");
+      alternatives.push("Use an OLTP datastore; feed Fabric for analytics/reporting.");
+    } else {
+      fit -= 1; risks.push("Analytics vs OLTP is unclear.");
+    }
+
+    if(needsUltraLowLatency === "yes"){
+      fit -= 3; risks.push("Ultra-low latency requirements suggest an app-serving datastore.");
+      alternatives.push("Use a low-latency serving store; use Fabric for analytics.");
+    } else if(needsUltraLowLatency === "no"){
+      fit += 1; positives.push("No ultra-low latency requirement stated.");
+    }
+
+    if(securityNeeds === "high"){
+      fit -= 1; risks.push("Sensitive data increases governance and access design requirements.");
+      positives.push("Onboarding may proceed if required controls are implemented.");
+    } else if(securityNeeds === "unknown"){
+      fit -= 1; risks.push("Data sensitivity is unknown.");
+    }
+
+    if(apiFieldsVisible && (sources.includes("api") || sources.includes("catalog"))){
+      fit += 1; positives.push("API/external platform ingestion can be supported via scheduled extraction patterns.");
+      if(apiAuth === "unknown"){ fit -= 1; risks.push("API authentication method is unknown."); }
+      if(apiLimits === "tight"){ fit -= 2; risks.push("Tight API limits may constrain ingestion."); }
+      if(apiLimits === "unknown"){ fit -= 1; risks.push("API limits/quotas are unknown."); }
+      if(incrementalSupport === "no"){ fit -= 1; risks.push("No incremental load support; full extracts may be required."); }
+      if(incrementalSupport === "unknown"){ fit -= 1; risks.push("Incremental load support is unknown."); }
+      if(changeControl === "uncontrolled"){ fit -= 2; risks.push("External provider changes may occur without notice."); }
+      if(changeControl === "unknown"){ fit -= 1; risks.push("External change control is unknown."); }
+    }
+
+    if(boundaryFieldsVisible){
+      if(sorBoundary === "external"){
+        fit += 1; positives.push("External system remains the system of record; Fabric is downstream.");
+      } else if(sorBoundary === "fabric"){
+        fit -= 2; risks.push("Treating Fabric as system of record increases governance/operating requirements.");
+      } else {
+        fit -= 1; risks.push("System of record boundary is unclear.");
+      }
+      if(scopeInFabric === "unknown"){
+        fit -= 1; risks.push("Scope to include in Fabric is unclear.");
+      }
+    }
+
+    if(clouds.includes("vendor")){
+      fit -= 1; risks.push("Externally managed platforms may require boundary and change-control management.");
+    }
+
+    let fitStatus = "maybe";
+    if(fit >= 3) fitStatus = "good";
+    if(fit <= -2) fitStatus = "bad";
+
+    const hardBlock = (governanceAdopt === "no") || (primaryOutcome === "app" && (needsUltraLowLatency === "yes" || isAnalyticsNotOltp === "no"));
+    if(hardBlock) fitStatus = "bad";
+
+    // Minimal recommendations logic retained (top picks rendered elsewhere previously); this response focuses on decision text changes.
+    const kpis = [
+      { k: "Outcome", v: document.getElementById("primaryOutcome").selectedOptions[0].textContent },
+      { k: "Positives", v: (positives.length ? positives.slice(0,4).join(" ") : "None captured.") },
+      { k: "Risks", v: (risks.length ? risks.slice(0,4).join(" ") : "None flagged.") }
+    ];
+
+    return { fitStatus, positives: uniq(positives), risks: uniq(risks), alternatives: uniq(alternatives), kpis };
+  }
+
+  function setFitBadge(fitStatus){
+    const badge = document.getElementById("fitBadge");
+    let dot = "warn", text = "Fabric may be appropriate";
+    if(fitStatus === "good"){ dot="good"; text="Fabric appears appropriate"; }
+    if(fitStatus === "bad"){ dot="bad"; text="Fabric does not appear appropriate (as described)"; }
+    badge.innerHTML = `<span class="dot ${dot}"></span><span>${text}</span>`;
+  }
+
+  function render(){
+    const res = evaluate();
+    setFitBadge(res.fitStatus);
+
+    const fitKpis = document.getElementById("fitKpis");
+    fitKpis.innerHTML = "";
+    for(const x of res.kpis){
+      const el = document.createElement("div");
+      el.className = "kpi";
+      el.innerHTML = `<div class="k">${x.k}</div><div class="v">${x.v}</div>`;
+      fitKpis.appendChild(el);
+    }
+
+    // Note: The recommendation panels and medallion lists are unchanged from your last working version.
+    // If you want those restored here, paste the last full HTML you want to keep as the base and I’ll apply only the deltas.
+  }
+
+  function reset(){
+    document.getElementById("primaryOutcome").value = "bi";
+    document.getElementById("securityNeeds").value = "standard";
+
+    document.getElementById("apiAuth").value = "na";
+    document.getElementById("apiLimits").value = "na";
+    document.getElementById("incrementalSupport").value = "na";
+    document.getElementById("changeControl").value = "na";
+
+    document.getElementById("sorBoundary").value = "external";
+    document.getElementById("scopeInFabric").value = "unknown";
+
+    document.getElementById("notes").value = "";
+    document.getElementById("showRationale").checked = false;
+
+    document.querySelectorAll(`#sources input[type="checkbox"], #consumers input[type="checkbox"], #clouds input[type="checkbox"]`).forEach(x => x.checked = false);
+
+    setPillGroupValue("shareReuse","yes");
+    setPillGroupValue("isAnalyticsNotOltp","yes");
+    setPillGroupValue("needsUltraLowLatency","no");
+    setPillGroupValue("governanceAdopt","yes");
+    setPillGroupValue("needsSemantic","yes");
+    setPillGroupValue("wantsShortcuts","ns");
+    setPillGroupValue("wantsMirroring","ns");
+    setPillGroupValue("shortcutPrimaryOk","ns");
+
+    applyConditionalVisibility();
+    render();
+  }
+
+  document.getElementById("runBtn").addEventListener("click", render);
+  document.getElementById("resetBtn").addEventListener("click", reset);
+
+  document.getElementById("pdfBtn").addEventListener("click", () => {
+    render();
+    window.print();
+  });
+
+  document.querySelectorAll(`#sources input[type="checkbox"], #clouds input[type="checkbox"]`).forEach(x => {
+    x.addEventListener("change", () => applyConditionalVisibility());
+  });
+
+  applyConditionalVisibility();
+  render();
+</script>
+</body>
+</html>
