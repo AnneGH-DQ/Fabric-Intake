@@ -10,65 +10,153 @@
       --warn:#ffcc66; --bad:#ff6e86; --good:#6effc2;
     }
     *{ box-sizing:border-box; }
-    body{ margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      background:linear-gradient(180deg,var(--bg),#070a14); color:var(--text); }
-    header{ padding:22px 18px; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:10;
-      background:rgba(11,16,32,.92); backdrop-filter: blur(10px); }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:linear-gradient(180deg,var(--bg),#070a14);
+      color:var(--text);
+    }
+    header{
+      padding:22px 18px;
+      border-bottom:1px solid var(--line);
+      position:sticky;
+      top:0;
+      z-index:10;
+      background:rgba(11,16,32,.92);
+      backdrop-filter: blur(10px);
+    }
     header h1{ margin:0 0 6px; font-size:18px; letter-spacing:.2px; }
     header p{ margin:0; color:var(--muted); font-size:13px; line-height:1.45; max-width:1100px; }
+
     main{ max-width:1320px; margin:0 auto; padding:18px; }
     .grid{ display:grid; grid-template-columns: 1fr 1.3fr; gap:16px; }
     @media (max-width: 980px){ .grid{ grid-template-columns:1fr; } header{ position:static; } }
-    .card{ background:rgba(18,26,51,.92); border:1px solid var(--line); border-radius:16px; padding:14px;
-      box-shadow:0 10px 30px rgba(0,0,0,.25); }
+
+    .card{
+      background:rgba(18,26,51,.92);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px;
+      box-shadow:0 10px 30px rgba(0,0,0,.25);
+    }
     .card h2{ margin:0 0 10px; font-size:14px; color:#cfe0ff; letter-spacing:.2px; }
     .sub{ color:var(--muted); font-size:12px; margin-top:-6px; margin-bottom:10px; line-height:1.45; }
+
     .field{ display:flex; flex-direction:column; gap:6px; margin:10px 0 12px; }
     label{ font-size:12px; color:var(--muted); }
+
     select, textarea, input[type="text"]{
-      background:#0c132b; border:1px solid var(--line); color:var(--text); border-radius:12px;
-      padding:10px 10px; outline:none; font-size:13px;
+      background:#0c132b;
+      border:1px solid var(--line);
+      color:var(--text);
+      border-radius:12px;
+      padding:10px 10px;
+      outline:none;
+      font-size:13px;
     }
     textarea{ min-height:64px; resize:vertical; }
-    select:focus, textarea:focus, input[type="text"]:focus{ border-color:var(--accent); box-shadow:0 0 0 3px rgba(110,168,255,.18); }
+    select:focus, textarea:focus, input[type="text"]:focus{
+      border-color:var(--accent);
+      box-shadow:0 0 0 3px rgba(110,168,255,.18);
+    }
+
     .checks{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
     @media (max-width: 520px){ .checks{ grid-template-columns:1fr; } }
-    .check{ display:flex; gap:8px; align-items:flex-start; padding:10px; border:1px solid var(--line); border-radius:12px; background:#0c132b; }
+
+    .check{
+      display:flex; gap:8px; align-items:flex-start;
+      padding:10px; border:1px solid var(--line);
+      border-radius:12px; background:#0c132b;
+    }
     .check input{ margin-top:2px; }
     .check span{ font-size:12px; color:#d9e4ff; line-height:1.25; }
+
     .row{ display:flex; gap:10px; flex-wrap:wrap; }
-    .pill{ font-size:12px; padding:8px 10px; border:1px solid var(--line); border-radius:999px;
-      background:#0c132b; color:#d9e4ff; cursor:pointer; user-select:none; }
-    .pill[data-active="true"]{ border-color:var(--accent); box-shadow:0 0 0 3px rgba(110,168,255,.14); }
+    .pill{
+      font-size:12px; padding:8px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:#0c132b; color:#d9e4ff;
+      cursor:pointer; user-select:none;
+    }
+    .pill[data-active="true"]{
+      border-color:var(--accent);
+      box-shadow:0 0 0 3px rgba(110,168,255,.14);
+    }
+
     .btnbar{ display:flex; gap:10px; align-items:center; margin-top:10px; flex-wrap:wrap; }
     button{
       background:linear-gradient(180deg,#7bb3ff,#4a86ff);
-      border:none; color:#051027; border-radius:12px; padding:10px 12px; font-weight:900; cursor:pointer;
+      border:none; color:#051027;
+      border-radius:12px; padding:10px 12px;
+      font-weight:900; cursor:pointer;
     }
-    button.secondary{ background:#0c132b; color:#e8eeff; border:1px solid var(--line); font-weight:800; }
+    button.secondary{
+      background:#0c132b; color:#e8eeff;
+      border:1px solid var(--line);
+      font-weight:800;
+    }
     button:active{ transform: translateY(1px); }
+
     .muted{ color:var(--muted); font-size:12px; line-height:1.45; }
-    .badge{ display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border-radius:999px; border:1px solid var(--line);
-      background:#0c132b; font-size:12px; color:#d9e4ff; }
+
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px; border-radius:999px;
+      border:1px solid var(--line);
+      background:#0c132b;
+      font-size:12px; color:#d9e4ff;
+    }
     .dot{ width:10px; height:10px; border-radius:999px; display:inline-block; }
     .dot.good{ background:var(--good); } .dot.warn{ background:var(--warn); } .dot.bad{ background:var(--bad); }
+
     .kpiGrid{ display:grid; grid-template-columns:1fr; gap:10px; margin-top:10px; }
     .kpi{ border:1px solid var(--line); border-radius:14px; padding:10px; background:#0c132b; }
     .kpi .k{ font-size:12px; color:#cfe0ff; font-weight:900; margin-bottom:6px; }
     .kpi .v{ font-size:12px; color:#d9e4ff; line-height:1.45; }
+
     .hr{ border-top:1px solid var(--line); margin-top:14px; padding-top:12px; }
     .sectionTitle{ margin-top:12px; font-size:12px; color:#cfe0ff; font-weight:900; }
+
     .topPicks{ display:grid; grid-template-columns:1fr; gap:10px; margin-top:10px; }
-    .pick{ border:1px solid var(--line); border-radius:14px; padding:12px; background:#0c132b;
-      display:flex; justify-content:space-between; gap:12px; align-items:flex-start; }
+    .pick{
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px;
+      background:#0c132b;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+    }
     .pick .left{ min-width:0; }
     .pick .name{ font-size:13px; font-weight:950; color:#e8eeff; margin-bottom:6px; }
     .pick .gloss{ font-size:12px; color:var(--muted); line-height:1.45; }
-    .pick .tag{ font-size:11px; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:6px 8px; white-space:nowrap; }
-    details{ border:1px solid var(--line); border-radius:14px; background:#0c132b; padding:10px; margin-top:10px; }
-    details summary{ cursor:pointer; font-weight:900; font-size:13px; color:#d9e4ff; }
+    .pick .tag{
+      font-size:11px; color:var(--muted);
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:6px 8px;
+      white-space:nowrap;
+    }
 
-    /* Hide/show conditional fields */
+    details{
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#0c132b;
+      padding:10px;
+      margin-top:10px;
+    }
+    details summary{
+      cursor:pointer;
+      font-weight:900;
+      font-size:13px;
+      color:#d9e4ff;
+    }
+
+    .list{ margin:8px 0 0; padding-left:16px; }
+    .list li{ margin:6px 0; color:#d9e4ff; font-size:12px; line-height:1.45; }
+
     .hidden{ display:none !important; }
 
     /* Print / PDF */
@@ -79,7 +167,7 @@
       select, textarea, input[type="text"]{ border:1px solid #ddd; color:#000; background:#fff; }
       .pill, .badge, details, .check{ background:#fff; color:#000; border:1px solid #ddd; }
       .dot{ display:none; }
-      button, #catalogueDetails{ display:none !important; }
+      button{ display:none !important; }
       .muted{ color:#333; }
       .grid{ grid-template-columns:1fr; }
     }
@@ -89,7 +177,7 @@
 <header>
   <h1>Microsoft Fabric Intake Questionnaire</h1>
   <p>
-    The purpose of this questionnaire is to help the department’s architecture team understand your data needs and requirements, so we can confirm whether Microsoft Fabric is appropriate for your use case and identify which Fabric items are the best starting point if onboarding proceeds.
+    The purpose of this questionnaire is to help the departmentâ€™s architecture team understand your data needs and requirements, so we can confirm whether Microsoft Fabric is appropriate for your use case and identify which Fabric items are the best starting point if onboarding proceeds.
   </p>
 </header>
 
@@ -252,15 +340,6 @@
             <option value="unknown">Unknown</option>
           </select>
         </div>
-
-        <div class="field">
-          <label>Is OneLake shortcut acceptable as the primary integration pattern?</label>
-          <div class="row" id="shortcutPrimaryOk">
-            <div class="pill" data-value="yes">Yes</div>
-            <div class="pill" data-value="no">No</div>
-            <div class="pill" data-value="ns" data-active="true">Not sure</div>
-          </div>
-        </div>
       </div>
 
       <div class="field">
@@ -276,7 +355,7 @@
         <label for="volume">Data volume</label>
         <select id="volume">
           <option value="small">Small (GBs)</option>
-          <option value="medium">Medium (10s–100s GB)</option>
+          <option value="medium">Medium (10sâ€“100s GB)</option>
           <option value="large">Large (TBs+)</option>
         </select>
       </div>
@@ -316,15 +395,6 @@
           <div class="pill" data-value="yes" data-active="true">Yes</div>
           <div class="pill" data-value="no">No</div>
           <div class="pill" data-value="ns">Not sure</div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label>Do you want to link data without copying it (OneLake shortcut)?</label>
-        <div class="row" id="wantsShortcuts">
-          <div class="pill" data-value="yes">Yes</div>
-          <div class="pill" data-value="no">No</div>
-          <div class="pill" data-value="ns" data-active="true">Not sure</div>
         </div>
       </div>
 
@@ -382,7 +452,7 @@
 
       <div class="hr"></div>
       <div class="sectionTitle">Suggested landing pattern (if Fabric)</div>
-      <div class="muted" style="margin-top:6px">This outlines a typical Bronze/Silver/Gold approach aligned to the selected items.</div>
+      <div class="muted" style="margin-top:6px">A typical Bronze/Silver/Gold approach aligned to the selected options.</div>
 
       <div class="sectionTitle" style="margin-top:10px">Bronze</div>
       <ul class="list" id="bronze"></ul>
@@ -427,30 +497,68 @@
   wirePills("needsUltraLowLatency", "no");
   wirePills("governanceAdopt", "yes");
   wirePills("needsSemantic", "yes");
-  wirePills("wantsShortcuts", "ns");
   wirePills("wantsMirroring", "ns");
-  wirePills("shortcutPrimaryOk", "ns");
 
-  // NOTE: Catalogue removed in this version per your earlier instructions.
+  // NOTE: Per your instruction, no catalogue and no OneLake shortcut item in the UI/output.
+
+  const CATALOG = [
+    { key:"Dashboard", label:"Dashboard", gloss:"An at-a-glance set of tiles for quick monitoring." },
+    { key:"Report", label:"Report", gloss:"Interactive report pages for exploration and analysis." },
+    { key:"SemanticModel", label:"Semantic model", gloss:"Reusable KPI/metrics layer so reports stay consistent." },
+    { key:"PaginatedReport", label:"Paginated report", gloss:"Pixel-perfect / printable operational reports (statements, forms)." },
+
+    { key:"Lakehouse", label:"Lakehouse", gloss:"Store and work with tables + files; common for shared datasets and engineering." },
+    { key:"Notebook", label:"Notebook", gloss:"Code workspace (SQL/Python) for data work and analysis." },
+    { key:"SparkJob", label:"Spark job", gloss:"Production job that runs Spark logic on schedule." },
+    { key:"Environment", label:"Environment", gloss:"Package/dependency control for consistent execution." },
+
+    { key:"DataPipeline", label:"Data pipeline", gloss:"Orchestration for scheduling and monitoring ingestion and transformations." },
+    { key:"CopyJob", label:"Copy job", gloss:"Focused copy operation between sources/destinations." },
+    { key:"Dataflow", label:"Dataflow", gloss:"Power Query style data preparation." },
+
+    { key:"Warehouse", label:"Warehouse", gloss:"SQL-first analytics store for curated tables and BI consumption." },
+    { key:"MirroredDatabase", label:"Mirrored database (replication)", gloss:"Replication of operational DB with minimal ETL (where supported)." },
+
+    { key:"Eventstream", label:"Eventstream", gloss:"Streaming ingestion and routing for events/logs." },
+    { key:"KQLDatabase", label:"KQL database", gloss:"Fast querying for logs/telemetry/time-series using KQL." },
+    { key:"KQLDashboard", label:"KQL dashboard", gloss:"Near real-time dashboards over KQL/event data." },
+    { key:"Activator", label:"Activator", gloss:"Detect conditions and trigger alerts/actions." },
+
+    { key:"MLExperiment", label:"ML experiment", gloss:"Experiment tracking." },
+    { key:"MLModel", label:"ML model", gloss:"Model registry/lifecycle." }
+  ];
+  const BY_KEY = Object.fromEntries(CATALOG.map(x => [x.key, x]));
+
+  function initRec(){
+    const rec = {};
+    for(const it of CATALOG){
+      rec[it.key] = { key: it.key, score: 0, why: [], next: [] };
+    }
+    return rec;
+  }
+  function add(rec, key, points, why, nextStep){
+    if(!rec[key]) return;
+    rec[key].score += points;
+    if(why) rec[key].why.push(why);
+    if(nextStep) rec[key].next.push(nextStep);
+  }
 
   function isApiOrExternalPlatformSelected(){
     const sources = getCheckedValues("sources");
     const clouds = getCheckedValues("clouds");
-    const wantsShortcuts = pillGroupValue("wantsShortcuts");
     const hasApiOrCatalogue = sources.includes("api") || sources.includes("catalog");
     const hasExternalCloud = clouds.includes("aws") || clouds.includes("gcp") || clouds.includes("vendor");
-    const hasShortcutInterest = (wantsShortcuts === "yes");
-    return { hasApiOrCatalogue, hasExternalCloud, hasShortcutInterest };
+    return { hasApiOrCatalogue, hasExternalCloud };
   }
 
   function applyConditionalVisibility(){
-    const { hasApiOrCatalogue, hasExternalCloud, hasShortcutInterest } = isApiOrExternalPlatformSelected();
+    const { hasApiOrCatalogue, hasExternalCloud } = isApiOrExternalPlatformSelected();
 
     const apiFields = document.getElementById("apiFields");
     apiFields.classList.toggle("hidden", !(hasApiOrCatalogue));
 
     const boundaryFields = document.getElementById("boundaryFields");
-    boundaryFields.classList.toggle("hidden", !(hasApiOrCatalogue || hasExternalCloud || hasShortcutInterest));
+    boundaryFields.classList.toggle("hidden", !(hasApiOrCatalogue || hasExternalCloud));
 
     if(apiFields.classList.contains("hidden")){
       document.getElementById("apiAuth").value = "na";
@@ -472,14 +580,15 @@
 
   function evaluate(){
     const primaryOutcome = document.getElementById("primaryOutcome").value;
+    const shareReuse = pillGroupValue("shareReuse");
     const isAnalyticsNotOltp = pillGroupValue("isAnalyticsNotOltp");
     const needsUltraLowLatency = pillGroupValue("needsUltraLowLatency");
     const governanceAdopt = pillGroupValue("governanceAdopt");
     const securityNeeds = document.getElementById("securityNeeds").value;
 
+    const dataStructure = document.getElementById("dataStructure").value;
     const sources = getCheckedValues("sources");
     const clouds = getCheckedValues("clouds");
-    const wantsShortcuts = pillGroupValue("wantsShortcuts");
 
     const apiFieldsVisible = !document.getElementById("apiFields").classList.contains("hidden");
     const boundaryFieldsVisible = !document.getElementById("boundaryFields").classList.contains("hidden");
@@ -492,9 +601,15 @@
     const sorBoundary = document.getElementById("sorBoundary").value;
     const scopeInFabric = document.getElementById("scopeInFabric").value;
 
+    const freshness = document.getElementById("freshness").value;
+    const volume = document.getElementById("volume").value;
+    const concurrency = document.getElementById("concurrency").value;
+    const transformStyle = document.getElementById("transformStyle").value;
+
     const consumers = getCheckedValues("consumers");
     const needsSemantic = pillGroupValue("needsSemantic");
     const wantsMirroring = pillGroupValue("wantsMirroring");
+    const slaNeed = document.getElementById("slaNeed").value;
 
     const positives = [];
     const risks = [];
@@ -502,6 +617,7 @@
 
     let fit = 0;
 
+    // Fit logic
     if(["bi","analytics","realtime","ds"].includes(primaryOutcome)){
       fit += 2; positives.push("The stated outcome aligns with analytics/reporting/real-time/data science.");
     }
@@ -514,23 +630,17 @@
       alternatives.push("Use lower-cost retention storage; onboard to Fabric only if analytics/reporting is needed.");
     }
 
-    if(governanceAdopt === "yes"){
-      fit += 2; positives.push("Standards adoption supports onboarding to the shared platform.");
-    } else if(governanceAdopt === "no"){
+    if(governanceAdopt === "yes"){ fit += 2; positives.push("Standards adoption supports onboarding to the shared platform."); }
+    else if(governanceAdopt === "no"){
       fit -= 5; risks.push("Not adopting standards is a strong onboarding blocker.");
       alternatives.push("Adopt standards or use a separate platform boundary outside the shared Fabric ecosystem.");
-    } else {
-      fit -= 1; risks.push("Standards adoption is unclear.");
-    }
+    } else { fit -= 1; risks.push("Standards adoption is unclear."); }
 
-    if(isAnalyticsNotOltp === "yes"){
-      fit += 2; positives.push("Workload is analytics/reporting oriented.");
-    } else if(isAnalyticsNotOltp === "no"){
+    if(isAnalyticsNotOltp === "yes"){ fit += 2; positives.push("Workload is analytics/reporting oriented."); }
+    else if(isAnalyticsNotOltp === "no"){
       fit -= 3; risks.push("Workload appears application/OLTP oriented.");
       alternatives.push("Use an OLTP datastore; feed Fabric for analytics/reporting.");
-    } else {
-      fit -= 1; risks.push("Analytics vs OLTP is unclear.");
-    }
+    } else { fit -= 1; risks.push("Analytics vs OLTP is unclear."); }
 
     if(needsUltraLowLatency === "yes"){
       fit -= 3; risks.push("Ultra-low latency requirements suggest an app-serving datastore.");
@@ -558,16 +668,11 @@
     }
 
     if(boundaryFieldsVisible){
-      if(sorBoundary === "external"){
-        fit += 1; positives.push("External system remains the system of record; Fabric is downstream.");
-      } else if(sorBoundary === "fabric"){
-        fit -= 2; risks.push("Treating Fabric as system of record increases governance/operating requirements.");
-      } else {
-        fit -= 1; risks.push("System of record boundary is unclear.");
-      }
-      if(scopeInFabric === "unknown"){
-        fit -= 1; risks.push("Scope to include in Fabric is unclear.");
-      }
+      if(sorBoundary === "external"){ fit += 1; positives.push("External system remains the system of record; Fabric is downstream."); }
+      else if(sorBoundary === "fabric"){ fit -= 2; risks.push("Treating Fabric as system of record increases governance/operating requirements."); }
+      else { fit -= 1; risks.push("System of record boundary is unclear."); }
+
+      if(scopeInFabric === "unknown"){ fit -= 1; risks.push("Scope to include in Fabric is unclear."); }
     }
 
     if(clouds.includes("vendor")){
@@ -581,14 +686,188 @@
     const hardBlock = (governanceAdopt === "no") || (primaryOutcome === "app" && (needsUltraLowLatency === "yes" || isAnalyticsNotOltp === "no"));
     if(hardBlock) fitStatus = "bad";
 
-    // Minimal recommendations logic retained (top picks rendered elsewhere previously); this response focuses on decision text changes.
+    // Recommendations engine
+    const rec = initRec();
+
+    if(fitStatus !== "bad"){
+      // Outcome-driven
+      if(primaryOutcome === "bi"){
+        add(rec,"Report",14,"Report consumption aligns with interactive reporting.", "Start with a small set of priority reports.");
+        add(rec,"SemanticModel",12,"Shared KPI definitions support consistent reporting.", "Define measures once and reuse.");
+        add(rec,"Dashboard",6,"Dashboards can provide quick monitoring views.", "Use for executive/high-level tiles.");
+        add(rec,"PaginatedReport",6,"Use paginated reports where printable outputs are needed.", "Use for statements/forms/operational printouts.");
+      }
+      if(primaryOutcome === "analytics"){
+        add(rec,"Lakehouse",14,"Shared datasets commonly land in a Lakehouse.", "Land Bronze and build curated tables.");
+        add(rec,"Warehouse",12,"Curated tables for broad use often suit a Warehouse.", "Publish Gold tables/views for SQL & BI.");
+        add(rec,"DataPipeline",10,"Shared datasets need reliable ingestion orchestration.", "Schedule, monitor, and alert on runs.");
+      }
+      if(primaryOutcome === "realtime"){
+        add(rec,"Eventstream",16,"Near real-time monitoring aligns to Eventstream ingestion.", "Route events to KQL database and/or Lakehouse.");
+        add(rec,"KQLDatabase",14,"Real-time signals align to KQL for fast time-series querying.", "Persist and query event data.");
+        add(rec,"KQLDashboard",12,"Operational monitoring aligns to KQL dashboards.", "Build dashboards for key measures.");
+        add(rec,"Activator",8,"Alerts/actions align to Activator.", "Define triggers and notifications.");
+      }
+      if(primaryOutcome === "ds"){
+        add(rec,"Notebook",14,"Data science and feature work align to notebooks.", "Start with exploratory notebooks and standardise later.");
+        add(rec,"Environment",10,"DS work benefits from controlled dependencies.", "Create an environment for package consistency.");
+        add(rec,"MLExperiment",10,"Experiment tracking supports reproducibility.", "Track runs, parameters and metrics.");
+        add(rec,"MLModel",8,"Model registry supports lifecycle management.", "Register and manage models.");
+        add(rec,"Lakehouse",8,"DS often lands/curates data in a Lakehouse.", "Create feature-ready tables.");
+      }
+
+      // Data structure
+      if(dataStructure === "structured"){
+        add(rec,"Warehouse",12,"Structured tables align well to a Warehouse.", "Create curated consumption tables.");
+        add(rec,"SemanticModel",8,"Structured consumption benefits from a semantic model.", "Define measures and relationships.");
+      } else if(dataStructure === "mixed"){
+        add(rec,"Lakehouse",12,"Mixed tables/files align to a Lakehouse landing pattern.", "Use Bronze/Silver layers.");
+        add(rec,"Warehouse",6,"Gold consumption tables often fit a Warehouse.", "Expose curated Gold tables.");
+        add(rec,"Notebook",6,"Mixed content often needs code-based shaping.", "Use notebooks for complex transforms.");
+      } else {
+        add(rec,"Lakehouse",14,"File-heavy workloads commonly land in a Lakehouse.", "Land raw files then create tables.");
+        add(rec,"Notebook",10,"File parsing/transform often benefits from notebooks.", "Extract/normalize into tables.");
+      }
+
+      // Sources
+      if(sources.includes("files")){
+        add(rec,"Dataflow",10,"File shaping aligns well to Dataflows.", "Use Dataflows for repeatable shaping.");
+        add(rec,"DataPipeline",6,"Pipelines schedule/monitor ingestion.", "Schedule and monitor file ingestion.");
+      }
+      if(sources.includes("saas")){
+        add(rec,"DataPipeline",10,"SaaS ingestion often needs orchestration.", "Use pipelines to run and monitor ingestion.");
+        add(rec,"Dataflow",8,"Shaping SaaS extracts aligns to Dataflows.", "Standardise shaping logic.");
+      }
+      if(sources.includes("api") || sources.includes("catalog")){
+        add(rec,"DataPipeline",12,"API/catalog extraction aligns to scheduled pipelines.", "Implement extraction with monitoring.");
+        add(rec,"Notebook",8,"APIs/catalogues often need transformation/normalisation.", "Normalize metadata to tables.");
+        add(rec,"Lakehouse",8,"Landing raw API payloads suits a Lakehouse.", "Land raw then curate.");
+      }
+      if(sources.includes("opdb")){
+        add(rec,"DataPipeline",10,"Operational databases often need reliable ingestion.", "Build ingestion pipelines with alerting.");
+        if(wantsMirroring === "yes"){
+          add(rec,"MirroredDatabase",16,"Mirroring requested; mirrored database may fit (where supported).", "Assess source support and configure.");
+        } else if(wantsMirroring === "ns"){
+          add(rec,"MirroredDatabase",8,"Mirroring may reduce ETL effort (where supported).", "Validate feasibility.");
+        }
+      }
+      if(sources.includes("stream") || freshness === "minutes"){
+        add(rec,"Eventstream",14,"Streaming needs align to Eventstream.", "Route to KQL database/Lakehouse.");
+        add(rec,"KQLDatabase",10,"Logs/telemetry align to KQL database.", "Persist/query events.");
+        add(rec,"KQLDashboard",8,"Streaming monitoring aligns to KQL dashboards.", "Build operational views.");
+        add(rec,"Activator",6,"Streaming often benefits from alerts.", "Set conditions and actions.");
+      }
+
+      // Consumers
+      if(consumers.includes("bi")){
+        add(rec,"Report",10,"BI consumers align to reports.", "Publish standard reports.");
+        add(rec,"SemanticModel",12,"Consistent KPIs align to semantic model.", "Define measures once and reuse.");
+        add(rec,"Dashboard",4,"Dashboards can support quick executive views.", "Use if needed.");
+        add(rec,"PaginatedReport",6,"Printable outputs align to paginated reports.", "Use for operational printouts.");
+      }
+      if(consumers.includes("sql")){
+        add(rec,"Warehouse",10,"SQL consumers align to Warehouse curated tables.", "Provide Gold tables/views.");
+      }
+      if(consumers.includes("ds")){
+        add(rec,"Notebook",10,"DS consumers align to notebooks.", "Use for analysis/feature engineering.");
+        add(rec,"Environment",8,"DS work benefits from dependency control.", "Create an environment.");
+        add(rec,"MLExperiment",8,"Experiment tracking supports reproducibility.", "Track runs/params.");
+        add(rec,"MLModel",6,"Model registry supports lifecycle.", "Register models.");
+      }
+      if(consumers.includes("ops")){
+        add(rec,"KQLDashboard",10,"Ops monitoring aligns to KQL dashboards.", "Build operational dashboards.");
+        add(rec,"KQLDatabase",10,"Ops analysis aligns to KQL database.", "Persist and query signals.");
+        add(rec,"Eventstream",10,"Ops signals often arrive as events.", "Use Eventstream ingestion.");
+        add(rec,"Activator",6,"Ops workflows often need alerts.", "Configure triggers/actions.");
+      }
+
+      // Build style & scale
+      if(transformStyle === "lowcode"){
+        add(rec,"Dataflow",10,"Low-code preference points to Dataflows.", "Use shared patterns/templates.");
+      } else if(transformStyle === "code"){
+        add(rec,"Notebook",10,"Code-first preference aligns to notebooks.", "Use notebooks for transforms.");
+        add(rec,"SparkJob",8,"Productionising code aligns to Spark jobs.", "Schedule Spark jobs.");
+        add(rec,"Environment",6,"Code-first delivery benefits from dependency control.", "Use an environment.");
+      } else {
+        add(rec,"Dataflow",6,"Mixed delivery commonly uses Dataflows.", "Use Dataflows where appropriate.");
+        add(rec,"Notebook",6,"Mixed delivery often needs notebooks for complex logic.", "Use notebooks for hard transforms.");
+      }
+
+      if(volume === "large"){
+        add(rec,"Lakehouse",6,"Large volumes often benefit from lakehouse landing.", "Adopt Bronze/Silver/Gold layering.");
+        add(rec,"SparkJob",6,"Large transforms often become scheduled jobs.", "Use Spark jobs for repeatable processing.");
+      }
+
+      if(slaNeed === "yes_high"){
+        add(rec,"DataPipeline",4,"Stronger reliability expectations increase orchestration needs.", "Implement alerting and runbooks.");
+        add(rec,"SparkJob",2,"Reliable transforms often run as scheduled jobs.", "Schedule jobs with monitoring.");
+      }
+
+      if(needsSemantic === "yes"){
+        add(rec,"SemanticModel",10,"Consistent KPIs align to a semantic model.", "Define measures/relationships.");
+      }
+
+      if(concurrency === "high"){
+        add(rec,"SemanticModel",4,"High usage benefits from shared semantics.", "Publish a certified model.");
+        add(rec,"Warehouse",4,"High usage benefits from curated consumption tables.", "Optimise Gold layer.");
+      }
+      if(shareReuse === "yes"){
+        add(rec,"Warehouse",4,"Reuse often benefits from curated consumption tables.", "Create a Gold dataset.");
+        add(rec,"SemanticModel",4,"Reuse often needs consistent metric definitions.", "Define shared KPIs.");
+      }
+    }
+
+    const ranked = Object.values(rec).sort((a,b) => b.score - a.score);
+
+    let candidates = ranked.filter(r => r.score >= 12);
+    if(candidates.length === 0) candidates = ranked.filter(r => r.score >= 9);
+    let top = candidates.slice(0,3);
+
+    // reduce to 1â€“2 if itâ€™s clearly dominant
+    if(fitStatus !== "bad" && top.length > 0){
+      const s1 = top[0].score, s2 = top[1] ? top[1].score : 0, s3 = top[2] ? top[2].score : 0;
+      if(s1 >= 26 && (s1 - s2) >= 12) top = top.slice(0,1);
+      else if(s1 >= 22 && s2 > 0 && (s2 - s3) >= 10) top = top.slice(0,2);
+    }
+
+    // Medallion suggestions
+    const bronze = [], silver = [], gold = [];
+    if(fitStatus !== "bad"){
+      const topKeys = new Set(top.map(x => x.key));
+
+      if(topKeys.has("Eventstream")) bronze.push("Eventstream â†’ route live events to KQL database and/or Lakehouse");
+      if(topKeys.has("DataPipeline")) bronze.push("Data pipeline â†’ ingest/extract from source systems/APIs");
+      if(topKeys.has("CopyJob")) bronze.push("Copy job â†’ copy data from source to landing");
+      if(bronze.length === 0) bronze.push("Lakehouse â†’ land raw data (Bronze)");
+
+      if(topKeys.has("Dataflow")) silver.push("Dataflow â†’ curate/shape data (Silver)");
+      if(topKeys.has("Notebook") || topKeys.has("SparkJob")) silver.push("Notebooks/Spark jobs â†’ transform Bronze â†’ Silver");
+      if(silver.length === 0) silver.push("Curated tables (Silver)");
+
+      if(topKeys.has("Warehouse")) gold.push("Warehouse â†’ Gold consumption tables");
+      if(topKeys.has("SemanticModel") || needsSemantic === "yes") gold.push("Semantic model â†’ KPI/metrics layer for consistent reporting");
+      if(topKeys.has("Report") || consumers.includes("bi")) gold.push("Reports/dashboards/paginated reports â†’ consumption layer");
+      if(gold.length === 0) gold.push("Gold layer â†’ consumption-ready tables + reporting layer");
+    }
+
     const kpis = [
       { k: "Outcome", v: document.getElementById("primaryOutcome").selectedOptions[0].textContent },
       { k: "Positives", v: (positives.length ? positives.slice(0,4).join(" ") : "None captured.") },
       { k: "Risks", v: (risks.length ? risks.slice(0,4).join(" ") : "None flagged.") }
     ];
 
-    return { fitStatus, positives: uniq(positives), risks: uniq(risks), alternatives: uniq(alternatives), kpis };
+    return {
+      fitStatus,
+      positives: uniq(positives),
+      risks: uniq(risks),
+      alternatives: uniq(alternatives),
+      ranked,
+      top,
+      bronze: uniq(bronze),
+      silver: uniq(silver),
+      gold: uniq(gold),
+      kpis
+    };
   }
 
   function setFitBadge(fitStatus){
@@ -600,9 +879,12 @@
   }
 
   function render(){
+    const showRationale = document.getElementById("showRationale").checked;
     const res = evaluate();
+
     setFitBadge(res.fitStatus);
 
+    // KPIs (no "Fit decision" row)
     const fitKpis = document.getElementById("fitKpis");
     fitKpis.innerHTML = "";
     for(const x of res.kpis){
@@ -612,13 +894,101 @@
       fitKpis.appendChild(el);
     }
 
-    // Note: The recommendation panels and medallion lists are unchanged from your last working version.
-    // If you want those restored here, paste the last full HTML you want to keep as the base and I’ll apply only the deltas.
+    // Options
+    const topPicks = document.getElementById("topPicks");
+    const details = document.getElementById("details");
+    topPicks.innerHTML = "";
+    details.innerHTML = "";
+
+    if(res.fitStatus === "bad"){
+      const el = document.createElement("div");
+      el.className = "pick";
+      el.innerHTML = `
+        <div class="left">
+          <div class="name">Not recommended for onboarding (as described)</div>
+          <div class="gloss">Based on the answers provided, the workload appears better suited to a different primary platform, with Fabric used downstream for analytics/reporting where appropriate.</div>
+        </div>
+        <div class="tag">Not a fit</div>`;
+      topPicks.appendChild(el);
+
+      if(showRationale){
+        const det = document.createElement("details");
+        det.open = true;
+        const risks = res.risks.length ? res.risks.map(x => `<li>${x}</li>`).join("") : `<li>Not specified.</li>`;
+        const alts = res.alternatives.length ? res.alternatives.map(x => `<li>${x}</li>`).join("") : `<li>Use a fit-for-purpose store and integrate into Fabric for analytics.</li>`;
+        det.innerHTML = `
+          <summary>Rationale</summary>
+          <div class="sectionTitle">Reasons</div>
+          <ul class="list">${risks}</ul>
+          <div class="sectionTitle">Alternatives</div>
+          <ul class="list">${alts}</ul>`;
+        details.appendChild(det);
+      }
+
+      document.getElementById("bronze").innerHTML = "<li>N/A</li>";
+      document.getElementById("silver").innerHTML = "<li>N/A</li>";
+      document.getElementById("gold").innerHTML = "<li>N/A</li>";
+      return;
+    }
+
+    if(res.top.length === 0){
+      topPicks.innerHTML = `<div class="muted">No strong option yet. Select sources/consumers or add context.</div>`;
+    } else {
+      for(let i=0;i<res.top.length;i++){
+        const r = res.top[i];
+        const it = BY_KEY[r.key] || { label: r.key, gloss:"" };
+        const tagText = (i === 0) ? "Primary option" : (i === 1 ? "Alternative option" : "Optional");
+        const el = document.createElement("div");
+        el.className = "pick";
+        el.innerHTML = `
+          <div class="left">
+            <div class="name">${it.label}</div>
+            <div class="gloss">${it.gloss || ""}</div>
+          </div>
+          <div class="tag">${tagText}</div>`;
+        topPicks.appendChild(el);
+      }
+    }
+
+    if(showRationale && res.top.length){
+      for(const r of res.top){
+        const it = BY_KEY[r.key] || { label: r.key, gloss:"" };
+        const det = document.createElement("details");
+        det.open = true;
+        const why = uniq(r.why || []).slice(0,10).map(x => `<li>${x}</li>`).join("");
+        const next = uniq(r.next || []).slice(0,8).map(x => `<li>${x}</li>`).join("");
+        det.innerHTML = `
+          <summary>${it.label} â€” rationale</summary>
+          <div class="sectionTitle">Why</div>
+          <ul class="list">${why || "<li>Not specified.</li>"}</ul>
+          ${next ? `<div class="sectionTitle">Next steps</div><ul class="list">${next}</ul>` : ""}`;
+        details.appendChild(det);
+      }
+    }
+
+    // Medallion lists
+    const setList = (id, items) => {
+      const ul = document.getElementById(id);
+      ul.innerHTML = "";
+      for(const x of items){
+        const li = document.createElement("li");
+        li.textContent = x;
+        ul.appendChild(li);
+      }
+    };
+    setList("bronze", res.bronze.length ? res.bronze : ["Lakehouse â†’ land raw data (Bronze)"]);
+    setList("silver", res.silver.length ? res.silver : ["Curated tables (Silver)"]);
+    setList("gold", res.gold.length ? res.gold : ["Gold layer â†’ consumption-ready tables + reporting layer"]);
   }
 
   function reset(){
     document.getElementById("primaryOutcome").value = "bi";
     document.getElementById("securityNeeds").value = "standard";
+    document.getElementById("dataStructure").value = "structured";
+    document.getElementById("freshness").value = "batch";
+    document.getElementById("volume").value = "small";
+    document.getElementById("concurrency").value = "low";
+    document.getElementById("transformStyle").value = "lowcode";
 
     document.getElementById("apiAuth").value = "na";
     document.getElementById("apiLimits").value = "na";
@@ -628,6 +998,7 @@
     document.getElementById("sorBoundary").value = "external";
     document.getElementById("scopeInFabric").value = "unknown";
 
+    document.getElementById("slaNeed").value = "no";
     document.getElementById("notes").value = "";
     document.getElementById("showRationale").checked = false;
 
@@ -638,9 +1009,7 @@
     setPillGroupValue("needsUltraLowLatency","no");
     setPillGroupValue("governanceAdopt","yes");
     setPillGroupValue("needsSemantic","yes");
-    setPillGroupValue("wantsShortcuts","ns");
     setPillGroupValue("wantsMirroring","ns");
-    setPillGroupValue("shortcutPrimaryOk","ns");
 
     applyConditionalVisibility();
     render();
